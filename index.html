@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="username-display" style="position: absolute; top: 10px; left: 10px;"></div>
+
+    <div class="authSign" id="authSign">
+        <div class="container" id="auth">
+            <h2>Giriş Yap</h2>
+            <input type="text" id="login-username" placeholder="Kullanıcı Adı">
+            <input type="password" id="login-password" placeholder="Şifre">
+            <button onclick="login()">Giriş Yap</button>
+            <p>Hesabın Yok Mu? <span onclick="showRegister()">Kayıt Ol</span></p>
+        </div>
+        <div class="container" id="register" style="display:none;">
+            <h2>Kayıt Ol</h2>
+            <input type="text" id="register-username" placeholder="Kullanıcı Adı">
+            <input type="password" id="register-password" placeholder="Şifre">
+            <button onclick="register()">Kayıt Ol</button>
+            <p>Hesabın Var Mı? <span onclick="showLogin()">Giriş Yap</span></p>
+        </div>
+    </div>
+    <div id="todo-app" style="display:none;">
+        <div class="top-right">
+            <button class="logout-btn" onclick="logout()">Çıkış Yap</button>
+        </div>
+        <div class="todo-container">
+            <div class="todo-input">
+                <h2>Yapılacaklar Listesi</h2>
+                <input type="text" id="new-todo" placeholder="Yeni Bir Görev Ekleyin">
+                <button onclick="addTodo()">Ekle</button>
+            </div>
+            <div id="filter-buttons">
+                <button class="filter-btn bekliyor-btn" onclick="filterTodos('Bekliyor')">Bekliyor</button>
+                <button class="filter-btn devam-ediyor-btn" onclick="filterTodos('Devam Ediyor')">Yapılıyor</button>
+                <button class="filter-btn tamamlandi-btn" onclick="filterTodos('Tamamlandı')">Tamamlandı</button>
+                <button class="filter-btn sifirla-btn" onclick="loadTodos()">Sıfırla</button>
+            </div>
+            <ul id="todo-list" class="todo-list">
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
