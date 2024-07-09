@@ -9,6 +9,26 @@ body {
     padding: 20px;
 }
 
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 400px;
+    height: fit-content;
+    padding: 20px;
+    margin:10px;
+    border: solid;
+    border-width: 1px;
+    border-radius: 40px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 input {
     margin: 8px;
     padding: 15px;
@@ -46,6 +66,9 @@ span {  /* kayıt ol giriş yap yazıları için */
     color:yellow;
 }
 
+
+
+
 .todo-container {  /* todo container kısmı */
     display: flex;
     flex-direction: column;
@@ -68,7 +91,7 @@ span {  /* kayıt ol giriş yap yazıları için */
     border-radius: 20px;
 }
 
-.todo-list {   /* todo alt alta liste şeklinde düzenlemeleri */
+.todo-list {
     list-style: none;
     padding: 0;
     width: 100%;
@@ -96,12 +119,14 @@ span {  /* kayıt ol giriş yap yazıları için */
 .todo-item button.update-btn {
     color: #18bd1e;
     border-radius: 70px;
-    border: none;
-    background: none;
 }
 
 .todo-item button.delete-btn {
     color: #ee041b;
+}
+
+
+.todo-item .btn-container button {
     border: none;
     background: none;
 }
