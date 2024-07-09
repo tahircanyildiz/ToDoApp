@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Todo App</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 
 <body>
@@ -29,37 +30,25 @@
     </div>
     <div id="todo-app" style="display:none;">
         <div class="top-right">
-            <button class="logout-btn" onclick="logout()">Çıkış Yap</button>
+            <button class="logout-btn fa fa-sign-out" onclick="logout()">Çıkış Yap</button>   
         </div>
         <div class="todo-container">
-            <div class="todo-input">
-                <h2>Yapılacaklar Listesi</h2>
+            <div class="todo-input todo-item">
                 <input type="text" id="new-todo" placeholder="Yeni Bir Görev Ekleyin">
                 <button onclick="addTodo()">Ekle</button>
             </div>
-            <div id="filter-buttons">
-                <button class="filter-btn bekliyor-btn" onclick="filterTodos('Bekliyor')">Bekliyor</button>
-                <button class="filter-btn devam-ediyor-btn" onclick="filterTodos('Devam Ediyor')">Yapılıyor</button>
-                <button class="filter-btn tamamlandi-btn" onclick="filterTodos('Tamamlandı')">Tamamlandı</button>
-                <button class="filter-btn sifirla-btn" onclick="loadTodos()">Sıfırla</button>
+            <div id="filter-buttons" class="btn-container">
+                <select class="status-select" onchange="filterTodos(this.value)">
+                    <option value="">Tümü</option>
+                    <option value="Bekliyor">Bekliyor</option>
+                    <option value="Devam Ediyor">Devam Ediyor</option>
+                    <option value="Tamamlandı">Tamamlandı</option>
+                </select>
             </div>
             <ul id="todo-list" class="todo-list">
             </ul>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <script src="script.js"></script>
 </body>

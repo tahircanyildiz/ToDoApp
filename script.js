@@ -7,26 +7,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-function showLogin() { // Varsayılan olarak açık olan ekran
+function showLogin() {
     document.getElementById("register").style.display = "none";
     document.getElementById("auth").style.display = "block";
     document.getElementById("todo-app").style.display = "none";
 }
 
-function showRegister() { // Kayıt ekranını aktif etmek için
+function showRegister() {
     document.getElementById("auth").style.display = "none";
     document.getElementById("todo-app").style.display = "none";
     document.getElementById("register").style.display = "block";
 }
 
-function showTodoApp() { // Giriş yaptıktan sonra aktif olan ekran
+function showTodoApp() {
     document.getElementById("auth").style.display = "none";
     document.getElementById("register").style.display = "none";
     document.getElementById("todo-app").style.display = "block";
     const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
-    const girenKullaniciBuyuk=girenKullanici.username.toUpperCase();
+    const girenKullaniciBuyuk = girenKullanici.username.toUpperCase();
     document.getElementById("username-display").textContent = `${girenKullaniciBuyuk}'S TODO LIST`;
-
 }
 
 function register() {
@@ -66,10 +65,10 @@ function logout() {
     localStorage.removeItem("girenKullanici");
     showLogin();
 }
+
 function addTodo() {
     const todoText = document.getElementById("new-todo").value;
     if (!todoText) return;
-
     const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
     let todos = JSON.parse(localStorage.getItem("todos")) || {};
     if (!todos[girenKullanici.username]) {
@@ -97,19 +96,23 @@ function loadTodos(statusFilter = null) {
             const todoText = document.createElement("p");
             todoText.textContent = todo.text;
 
-            const statusText = document.createElement("span");
-            statusText.textContent = ` (${todo.status})`;
-            statusText.style.color = getStatusColor(todo.status);
+            const statusSelect = document.createElement("select");
+            statusSelect.classList.add("status-select");
+            ["Bekliyor", "Devam Ediyor", "Tamamlandı"].forEach(status => {
+                const option = document.createElement("option");
+                option.value = status;
+                option.text = status;
+                if (status === todo.status) {
+                    option.selected = true;
+                }
+                statusSelect.appendChild(option);
+            });
+            statusSelect.onchange = () => changeStatus(index, statusSelect.value);
 
             const updateBtn = document.createElement("button");
             updateBtn.textContent = "Güncelle";
             updateBtn.classList.add("update-btn");
             updateBtn.onclick = () => updateTodo(index, todoText);
-
-            const statusBtn = document.createElement("button");
-            statusBtn.textContent = "Statü";
-            statusBtn.classList.add("status-btn");
-            statusBtn.onclick = () => changeStatus(index);
 
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Sil";
@@ -120,10 +123,9 @@ function loadTodos(statusFilter = null) {
             btnContainer.classList.add("btn-container");
             btnContainer.appendChild(updateBtn);
             btnContainer.appendChild(deleteBtn);
-            btnContainer.appendChild(statusBtn);
 
             li.appendChild(todoText);
-            li.appendChild(statusText);
+            li.appendChild(statusSelect);
             li.appendChild(btnContainer);
 
             todoList.appendChild(li);
@@ -153,23 +155,10 @@ function updateTodo(index, todoTextElement) {
     input.focus();
 }
 
-function changeStatus(index) {
+function changeStatus(index, newStatus) {
     const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
     let todos = JSON.parse(localStorage.getItem("todos")) || {};
-    const currentStatus = todos[girenKullanici.username][index].status;
-
-    switch (currentStatus) {
-        case 'Bekliyor':
-            todos[girenKullanici.username][index].status = 'Devam Ediyor';
-            break;
-        case 'Devam Ediyor':
-            todos[girenKullanici.username][index].status = 'Tamamlandı';
-            break;
-        case 'Tamamlandı':
-            todos[girenKullanici.username][index].status = 'Bekliyor';
-            break;
-    }
-
+    todos[girenKullanici.username][index].status = newStatus;
     localStorage.setItem("todos", JSON.stringify(todos));
     loadTodos();
 }
@@ -184,17 +173,4 @@ function deleteTodo(index) {
 
 function filterTodos(status) {
     loadTodos(status);
-}
-
-function getStatusColor(status) {
-    switch (status) {
-        case 'Bekliyor':
-            return 'red';
-        case 'Devam Ediyor':
-            return 'blue';
-        case 'Tamamlandı':
-            return 'green';
-        default:
-            return 'black';
-    }
 }
