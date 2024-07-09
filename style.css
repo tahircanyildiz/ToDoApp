@@ -20,7 +20,6 @@ body {
     width: 100%;
     max-width: 600px;
     height: fit-content;
-    padding: 20px;
     margin:10px;
     border: solid;
     border-width: 1px;
@@ -28,11 +27,29 @@ body {
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+div#auth.container,div#register.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    max-width: 300px;
+    height: fit-content;
+    margin:10px;
+    border: solid;
+    border-width: 1px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 input {
     margin: 8px;
     padding: 15px;
-    width: 80%;
+    width: 60%;
+    max-width: 250px;
     border: 1px solid #ccc;
     border-radius: 25px;
 }
