@@ -30,12 +30,19 @@ body {
 }
 
 input {
+    margin: 8px;
     padding: 15px;
     width: 80%;
     border: 1px solid #ccc;
     border-radius: 25px;
 }
-
+input#new-todo {
+    margin: 0px;
+    padding: 15px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+}
 button {
     cursor: pointer;
     margin: 5px 0;
@@ -139,5 +146,5 @@ span {  /* kayıt ol giriş yap yazıları için */
     border: 1px solid #ccc;
     border-radius: 10px;
     margin-left: 10px;
-}
+}s
 
