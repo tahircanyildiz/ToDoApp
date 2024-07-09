@@ -57,6 +57,7 @@ input#new-todo {
     margin: 0px;
     padding: 15px;
     width: 80%;
+    max-width: 600px;
     border: 1px solid #ccc;
     border-radius: 25px;
 }
