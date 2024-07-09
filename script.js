@@ -81,7 +81,7 @@ function addTodo() {
 }
 
 function loadTodos(statusFilter = null) {
-    const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
+    const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici")); // sonra globale çekebilirim şimdilik kalsın
     let todos = JSON.parse(localStorage.getItem("todos")) || {};
     const userTodos = todos[girenKullanici.username] || [];
 

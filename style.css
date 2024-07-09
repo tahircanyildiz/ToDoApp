@@ -9,30 +9,10 @@ body {
     padding: 20px;
 }
 
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    max-width: 400px;
-    height: fit-content;
-    padding: 20px;
-    margin:10px;
-    border: solid;
-    border-width: 1px;
-    border-radius: 40px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 input {
     margin: 8px;
     padding: 15px;
-    width: 90%;
+    width: 80%;
     border: 1px solid #ccc;
     border-radius: 40px;
 }
@@ -47,13 +27,13 @@ button {
     border-radius: 10px;
 }
 
-span {
+span {  /* kayıt ol giriş yap yazıları için */
     color: blue;
     cursor: pointer;
     text-decoration: underline;
 }
 
-.logout-btn {
+.logout-btn {  /* çıkış yap butonu işlemleri */
     background-color: #c6bcbc;
     border-radius: 60px;
     padding: 10px;
@@ -61,8 +41,12 @@ span {
     top: 5px;
     right: 10px;
 }
+.logout-btn:hover{   /* buton üstüne gelince olacak olan işlemler */
+    background-color: red;
+    color:yellow;
+}
 
-.todo-container {
+.todo-container {  /* todo container kısmı */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -72,41 +56,26 @@ span {
 }
 
 .todo-input {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
     max-width: 600px;
     padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ 
 }
 
-.todo-input input {
-    margin: 8px;
-    padding: 10px;
-    width: 70%;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-}
-
-.todo-input button {
+.todo-input button {   /* ekle butonu */
     padding: 10px 15px;
     background-color: #28a745;
     border-radius: 20px;
 }
 
-.todo-list {
+.todo-list {   /* todo alt alta liste şeklinde düzenlemeleri */
     list-style: none;
     padding: 0;
     width: 100%;
     max-width: 600px;
-    margin: 5px auto;
 }
 
-.todo-item {
+.todo-item {   /* todo list kısmı   */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -124,33 +93,15 @@ span {
     text-align: left;
 }
 
-.todo-item button {
-    cursor: pointer;
-    border: none;
-    background-color: green;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-}
-
-
-
 .todo-item button.update-btn {
     color: #18bd1e;
-    padding: 0px 0px 0px 30px;
+    border-radius: 70px;
+    border: none;
+    background: none;
 }
 
 .todo-item button.delete-btn {
     color: #ee041b;
-}
-
-.todo-item .btn-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.todo-item .btn-container button {
     border: none;
     background: none;
 }
@@ -161,16 +112,4 @@ span {
     border-radius: 4px;
     margin-left: 10px;
 }
-.todo-item .btn-container i {
-    font-size: 24px; /* İkonların font büyüklüğünü ayarlayın */
-}
-@media (max-width: 768px) {
-    .todo-item .btn-container {
-        flex-direction: column; /* Düğmeleri dikey hizalama */
-    }
 
-    .todo-item .btn-container button {
-        width: 100%; /* Düğmelerin genişliğini %100 yaparak sığmasını sağlayın */
-        margin-bottom: 10px; /* Düğmeler arası boşluk bırakın */
-    }
-}

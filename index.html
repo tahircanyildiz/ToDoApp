@@ -10,17 +10,18 @@
 </head>
 
 <body>
-    <div id="username-display" style="position: absolute; top: 10px; left: 10px;"></div>
+    <div id="username-display" style="position: absolute; top: 10px; left: 10px;"></div> 
+    <!--Giren kullanıcı adına göre sol üstte yazmasını istediğim için -->
 
     <div class="authSign" id="authSign">
-        <div class="container" id="auth">
+        <div class="container" id="auth"> <!--giriş yapma kısmı-->
             <h2>Giriş Yap</h2>
             <input type="text" id="login-username" placeholder="Kullanıcı Adı">
             <input type="password" id="login-password" placeholder="Şifre">
             <button onclick="login()">Giriş Yap</button>
             <p>Hesabın Yok Mu? <span onclick="showRegister()">Kayıt Ol</span></p>
-        </div>
-        <div class="container" id="register" style="display:none;">
+        </div> 
+        <div class="container" id="register" style="display:none;"> <!--kayıt olma kısmı-->
             <h2>Kayıt Ol</h2>
             <input type="text" id="register-username" placeholder="Kullanıcı Adı">
             <input type="password" id="register-password" placeholder="Şifre">
@@ -29,15 +30,15 @@
         </div>
     </div>
     <div id="todo-app" style="display:none;">
-        <div class="top-right">
+        <div class="top-right"><!--çıkış yap butonu için sağ üstte-->
             <button class="logout-btn fa fa-sign-out" onclick="logout()">Çıkış Yap</button>   
         </div>
         <div class="todo-container">
-            <div class="todo-input todo-item">
+            <div class="todo-input todo-item"> <!--todo ekleme kısmı-->
                 <input type="text" id="new-todo" placeholder="Yeni Bir Görev Ekleyin">
                 <button onclick="addTodo()">Ekle</button>
             </div>
-            <div id="filter-buttons" class="btn-container">
+            <div id="filter-buttons" class="btn-container"> <!--statüleri dropdown olarak aldım-->
                 <select class="status-select" onchange="filterTodos(this.value)">
                     <option value="">Tümü</option>
                     <option value="Bekliyor">Bekliyor</option>
