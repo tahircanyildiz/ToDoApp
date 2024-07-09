@@ -63,6 +63,7 @@ function login() {
 
 function logout() {
     localStorage.removeItem("girenKullanici");
+    document.getElementById("username-display").textContent="";
     showLogin();
 }
 
@@ -81,7 +82,7 @@ function addTodo() {
 }
 
 function loadTodos(statusFilter = null) {
-    const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici")); // sonra globale çekebilirim şimdilik kalsın
+    const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
     let todos = JSON.parse(localStorage.getItem("todos")) || {};
     const userTodos = todos[girenKullanici.username] || [];
 
@@ -110,13 +111,13 @@ function loadTodos(statusFilter = null) {
             statusSelect.onchange = () => changeStatus(index, statusSelect.value);
 
             const updateBtn = document.createElement("button");
-            updateBtn.textContent = "Güncelle";
             updateBtn.classList.add("update-btn");
+            updateBtn.innerHTML = '<i class="fas fa-edit"></i>';
             updateBtn.onclick = () => updateTodo(index, todoText);
 
             const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "Sil";
             deleteBtn.classList.add("delete-btn");
+            deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
             deleteBtn.onclick = () => deleteTodo(index);
 
             const btnContainer = document.createElement("div");
