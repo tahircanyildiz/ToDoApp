@@ -1,5 +1,6 @@
+let currentStatusFilter = null;
 document.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.getItem("girenKullanici")) {
+    if (localStorage.getItem("loginUser")) {
         showTodoApp();
         loadTodos();
     } else {
@@ -23,8 +24,8 @@ function showTodoApp() {
     document.getElementById("auth").style.display = "none";
     document.getElementById("register").style.display = "none";
     document.getElementById("todo-app").style.display = "block";
-    const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
-    const girenKullaniciBuyuk = girenKullanici.username.toUpperCase();
+    const loginUser = JSON.parse(localStorage.getItem("loginUser"));
+    const girenKullaniciBuyuk = loginUser.username.toUpperCase();
     document.getElementById("username-display").textContent = `${girenKullaniciBuyuk}'S TODO LIST`;
 }
 
@@ -49,7 +50,7 @@ function login() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const user = users.find(user => user.username === username && user.password === password);
     if (user) {
-        localStorage.setItem("girenKullanici", JSON.stringify(user));
+        localStorage.setItem("loginUser", JSON.stringify(user));
         document.getElementById("login-username").value = "";
         document.getElementById("login-password").value = "";
         loadTodos();
@@ -62,7 +63,7 @@ function login() {
 }
 
 function logout() {
-    localStorage.removeItem("girenKullanici");
+    localStorage.removeItem("loginUser");
     document.getElementById("username-display").textContent="";
     showLogin();
 }
@@ -70,21 +71,24 @@ function logout() {
 function addTodo() {
     const todoText = document.getElementById("new-todo").value;
     if (!todoText) return;
-    const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
+
+    const loginUser = JSON.parse(localStorage.getItem("loginUser"));
     let todos = JSON.parse(localStorage.getItem("todos")) || {};
-    if (!todos[girenKullanici.username]) {
-        todos[girenKullanici.username] = [];
+    
+    if (!todos[loginUser.username]) {
+        todos[loginUser.username] = [];
     }
-    todos[girenKullanici.username].push({ text: todoText, status: 'Bekliyor' });
+    
+    todos[loginUser.username].push({ text: todoText, status: 'Bekliyor' });
     localStorage.setItem("todos", JSON.stringify(todos));
     document.getElementById("new-todo").value = "";
     loadTodos();
 }
 
-function loadTodos(statusFilter = null) {
-    const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
+function loadTodos(statusFilter = currentStatusFilter) {
+    const loginUser = JSON.parse(localStorage.getItem("loginUser"));
     let todos = JSON.parse(localStorage.getItem("todos")) || {};
-    const userTodos = todos[girenKullanici.username] || [];
+    const userTodos = todos[loginUser.username] || [];
 
     const todoList = document.getElementById("todo-list");
     todoList.innerHTML = "";
@@ -143,35 +147,45 @@ function updateTodo(index, todoTextElement) {
     input.addEventListener("change", function () {
         const newTodoText = input.value.trim();
         if (newTodoText && newTodoText !== todoText) {
-            const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
+            const loginUser = JSON.parse(localStorage.getItem("loginUser"));
             let todos = JSON.parse(localStorage.getItem("todos")) || {};
-            todos[girenKullanici.username][index].text = newTodoText;
+            todos[loginUser.username][index].text = newTodoText;
             localStorage.setItem("todos", JSON.stringify(todos));
-            loadTodos();
+            loadTodos(currentStatusFilter); 
+        } else {
+            todoTextElement.textContent = todoText;
         }
     });
+
+    input.addEventListener("blur", function () {
+        todoTextElement.textContent = todoText;
+    });
+
     todoTextElement.innerHTML = '';
     todoTextElement.appendChild(input);
-
     input.focus();
 }
 
 function changeStatus(index, newStatus) {
-    const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
+    const loginUser = JSON.parse(localStorage.getItem("loginUser"));
     let todos = JSON.parse(localStorage.getItem("todos")) || {};
-    todos[girenKullanici.username][index].status = newStatus;
-    localStorage.setItem("todos", JSON.stringify(todos));
-    loadTodos();
+    todos[loginUser.username][index].status = newStatus;
+    localStorage.setItem("todos", JSON.stringify(todos));     
+    loadTodos(currentStatusFilter);
 }
 
 function deleteTodo(index) {
-    const girenKullanici = JSON.parse(localStorage.getItem("girenKullanici"));
-    let todos = JSON.parse(localStorage.getItem("todos")) || {};
-    todos[girenKullanici.username].splice(index, 1);
-    localStorage.setItem("todos", JSON.stringify(todos));
-    loadTodos();
+    const confirmDelete = confirm("silmek istediğinizden emin misiniz?");
+    if (confirmDelete) {
+        const loginUser = JSON.parse(localStorage.getItem("loginUser"));
+        let todos = JSON.parse(localStorage.getItem("todos")) || {};
+        todos[loginUser.username].splice(index, 1);
+        localStorage.setItem("todos", JSON.stringify(todos));
+        loadTodos(currentStatusFilter); 
+    }
 }
 
 function filterTodos(status) {
+    currentStatusFilter = status;
     loadTodos(status);
 }
